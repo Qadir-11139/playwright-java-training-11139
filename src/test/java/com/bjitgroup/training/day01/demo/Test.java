@@ -7,6 +7,7 @@ import com.microsoft.playwright.Playwright;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
+/** Standalone Playwright test that checks the Swag Labs page title. */
 public class Test {
 
     @org.testng.annotations.Test
