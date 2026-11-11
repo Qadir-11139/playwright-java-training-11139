@@ -7,7 +7,7 @@
     <groupId>com.bjitgroup.training</groupId>
     <artifactId>playwright-java-course</artifactId>
     <version>1.0.0</version>
-    <name>Playwright with Java - 20-Day Course</name>
+    <name>playwright-java-training</name>
     <description>Demo code, lab exercises and solutions for the BJIT Playwright with Java course.</description>
 
     <properties>
