@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- Day 01: mvn test -Dsuite=src/test/resources/suites/day01.xml -->
+<suite name="Day 01 - Why Playwright, setup and first test">
+
+    <test name="Demo">
+        <classes>
+            <class name="com.bjitgroup.training.day01.demo.FirstTestDemo"/>
+            <class name="com.bjitgroup.training.day01.demo.ThreeBrowsersDemo"/>
+            <class name="com.bjitgroup.training.day01.demo.ObjectModelDemo"/>
+        </classes>
+    </test>
+
+    <test name="Lab">
+        <classes>
+            <class name="com.bjitgroup.training.day01.lab.HelloPlaywrightLab"/>
+        </classes>
+    </test>
+
+    <test name="Solution">
+        <classes>
+            <class name="com.bjitgroup.training.day01.solution.HelloPlaywrightSolution"/>
+            <class name="com.bjitgroup.training.day01.solution.AllBrowsersSolution"/>
+            <class name="com.bjitgroup.training.day01.solution.SlowMoHomeworkSolution"/>
+        </classes>
+    </test>
+</suite>
