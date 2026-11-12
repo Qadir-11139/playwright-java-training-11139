@@ -1,12 +1,6 @@
-package com.bjitgroup.training.day01.solution;
+package com.bjitgroup.training.day01.assignment;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserType;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
 import org.testng.annotations.Test;
-
-import java.util.regex.Pattern;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
@@ -24,5 +18,6 @@ public class SlowMoHomeworkSolution {
     @Test
     public void watchTheLoginStepByStep() {
      // TODO: Task 1 · Slow motion and login
+
     }
 }

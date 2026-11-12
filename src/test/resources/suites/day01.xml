@@ -21,7 +21,7 @@
         <classes>
             <class name="com.bjitgroup.training.day01.solution.HelloPlaywrightSolution"/>
             <class name="com.bjitgroup.training.day01.solution.AllBrowsersSolution"/>
-            <class name="com.bjitgroup.training.day01.solution.SlowMoHomeworkSolution"/>
+            <class name="com.bjitgroup.training.day01.assignment.SlowMoHomeworkSolution"/>
         </classes>
     </test>
 </suite>
