@@ -1,7 +1,13 @@
 package com.bjitgroup.training.day01.lab;
 
-import org.testng.SkipException;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
 import org.testng.annotations.Test;
+
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 /**
  * Day 01 - Hands-on lab (25 min): Hello, Playwright.
@@ -25,31 +31,26 @@ public class HelloPlaywrightLab {
 
     @Test
     public void saucedemoTitleIsSwagLabs() {
-        throw new SkipException("Lab 01 not started: delete this line and complete the TODOs.");
+        String browserName = System.getProperty("browser", "chromium");
+        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
-        // TODO 1: Read two system properties:
-        //         browser  -> default "chromium"
-        //         headless -> default "false" (use Boolean.parseBoolean)
+        try (Playwright playwright = Playwright.create()) {
+            BrowserType browserType = switch (browserName.toLowerCase()) {
+                case "chromium" -> playwright.chromium();
+                case "firefox" -> playwright.firefox();
+                case "webkit" -> playwright.webkit();
+                default -> throw new IllegalArgumentException(
+                        "Unknown browser '" + browserName + "'. Use chromium, firefox or webkit.");
+            };
+            Browser browser = browserType.launch(
+                    new BrowserType.LaunchOptions().setHeadless(headless));
+            BrowserContext context = browser.newContext();
+            Page page = context.newPage();
 
-        // TODO 2: Create Playwright inside try-with-resources:
-        //         try (Playwright playwright = Playwright.create()) { ... }
+            page.navigate("https://www.saucedemo.com");
 
-        // TODO 3: Pick the BrowserType from the browser name:
-        //         "chromium" -> playwright.chromium()
-        //         "firefox"  -> playwright.firefox()
-        //         "webkit"   -> playwright.webkit()
-        //         anything else -> throw new IllegalArgumentException(...)
-
-        // TODO 4: Launch it with new BrowserType.LaunchOptions().setHeadless(headless)
-
-        // TODO 5: Create a BrowserContext, then a Page from that context
-
-        // TODO 6: Navigate to https://www.saucedemo.com
-
-        // TODO 7: assertThat(page).hasTitle("Swag Labs");
-        //         import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
-
-        // BONUS: also assert that the Username field is visible:
-        //         assertThat(page.getByPlaceholder("Username")).isVisible();
+            assertThat(page).hasTitle("Swag Labs");
+            assertThat(page.getByPlaceholder("Username")).isVisible();
+        }
     }
 }
