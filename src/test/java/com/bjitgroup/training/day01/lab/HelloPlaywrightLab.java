@@ -28,56 +28,30 @@ import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertTha
  * Stuck? Compare with {@code day01.solution.HelloPlaywrightSolution} - after you have tried.
  */
 public class HelloPlaywrightLab {
-    // It defines base URL of the application under test in the string object
-    private static final String BASE_URL = "https://www.saucedemo.com";
+
     @Test
     public void saucedemoTitleIsSwagLabs() {
-
-        // It gets the browser name. Uses Chromium by default.
         String browserName = System.getProperty("browser", "chromium");
-
-        // Gets the headless setting. The browser should be visible by default.
         boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
-        // Creates Playwright instance and closes it automatically after the test
         try (Playwright playwright = Playwright.create()) {
-
-            // Selects and launches the browser
-            Browser browser = browserType(playwright, browserName)
-                    .launch(new BrowserType.LaunchOptions().setHeadless(headless));
-
-            // Creates a separate browser session
+            BrowserType browserType = switch (browserName.toLowerCase()) {
+                case "chromium" -> playwright.chromium();
+                case "firefox" -> playwright.firefox();
+                case "webkit" -> playwright.webkit();
+                default -> throw new IllegalArgumentException(
+                        "Unknown browser '" + browserName + "'. Use chromium, firefox or webkit.");
+            };
+            Browser browser = browserType.launch(
+                    new BrowserType.LaunchOptions().setHeadless(headless));
             BrowserContext context = browser.newContext();
-
-            // Opens a new browser page
             Page page = context.newPage();
 
-            // Opens the SauceDemo website
-            page.navigate(BASE_URL);
+            page.navigate("https://www.saucedemo.com");
 
-            // Checks that the page title is "Swag Labs"
             assertThat(page).hasTitle("Swag Labs");
-
-            // Checks that the username field is visible
-            assertThat(page.getByPlaceholder("Username")).isVisible(); // bonus
-
-            // Prints the test information
-            System.out.printf("%s %s, headless=%s -> \"%s\"%n",
-                    browserName, browser.version(), headless, page.title());
+            assertThat(page.getByPlaceholder("Username")).isVisible();
         }
     }
-
-    static BrowserType browserType(Playwright playwright, String browserName) {
-
-        // Matches the browser name with a Playwright browser
-        return switch (browserName.toLowerCase()) {
-            case "chromium" -> playwright.chromium();
-            case "firefox" -> playwright.firefox();
-            case "webkit" -> playwright.webkit();
-
-            // Shows an error if the browser name is invalid.
-            default -> throw new IllegalArgumentException(
-                    "Unknown browser '" + browserName + "'. Use chromium, firefox or webkit.");
-        };
-    }
-    }
+}
+//New
